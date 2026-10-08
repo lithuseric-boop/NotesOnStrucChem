@@ -1,0 +1,252 @@
+	\chapter{Linear Algebra Formalism of Quantum Mechanics}
+	
+	\section{Vectors in Hilbert Space}
+	
+	\emph{Hilbert space} is defined as a complete inner product space 
+	where all the square-integrable functions are represented by \emph{kets} $|f\rangle$.\\
+	%
+	The inner product of two kets, representing the product of projection lengths, is denoted as $\langle f | g \rangle$.\\
+	%
+	In analysis, the \emph{bra} $\langle f |$ stands for an integration operation:
+	%
+	\[
+		\langle f | = \int\! f^{*}(x)\cdots\text{d}x
+	\]
+	Which then gives the analytical expression for inner products:
+	\[
+		\langle f | g \rangle = \int\! f^{*}(x)g(x)\,\text{d}x
+	\]
+	In linear algebra, 
+	vectors are expanded in their coordinate form with respect to a certain basis.
+	\[
+		| f \rangle = 
+		\begin{pmatrix}
+			f_1 \\ f_2 \\ \vdots \\ f_n
+		\end{pmatrix},
+		\quad 
+		|g\rangle =
+		\begin{pmatrix}
+			g_1 \\ g_2 \\ \vdots \\ g_n
+		\end{pmatrix}
+	\]
+	%
+	The bra notation $\langle f |$ is the transpose conjugate of ket, i.e.
+	\[\langle f | = | f \rangle^{T*} = (f_{1}^{*}\ f_{2}^{*}\ \cdots \ f_{n}^{*}).\]
+	Hence $\langle f | g \rangle = f_{1}^{*}g_1 + f_{2}^{*}g_2 + \cdots + f_{n}^{*}g_n$.\\ \\
+	Two important properties of inner products:\\
+	(1) Conjugate commutation: $\langle f | g \rangle = \langle g | f \rangle^{*} \qquad$ \\       
+	(2) Schwarz inequality: $|\langle f | g \rangle|^{2} \leq \langle f | f \rangle \langle g | g \rangle$\\ \\
+	For an arbitrary group of functions $\{|f_n\rangle\}$: \\
+	If $\langle f_m | f_n \rangle = \delta_{mn}$ (discrete), 
+	or $\langle f_n | f_{n'} \rangle = \delta(n-n')$ (continuous), 
+	we say $\{|f_n\rangle\}$ is \emph{orthonormal}. 
+	If $\{|f_n\rangle\}$ spans the whole Hilbert space, we say it's \emph{complete}.\\ \\
+	Therefore, for an orthonormal basis $\{|e_n\rangle\}$, any vector $|\alpha\rangle$ can be expressed in its coordinate form:
+	\[|\alpha\rangle = \sum_{n}c_n|e_n\rangle\ \ \text{(discrete) or }|\alpha\rangle = \int\! c_n|e_n\rangle\,\text{d}n \ \ \text{(continuous)},\]
+	where the coefficients $c_n$ is the projection length of $|\alpha\rangle$ on each $|e_n\rangle$, i.e.
+	\[c_n = \langle e_n | \alpha \rangle.\]
+	\emph{Note that this is also a good way to understand Fourier transform, as the trig functions can be orthonormalized.}\\ \\
+	In quantum mechanics, the \emph{quantum state} is described as a coordinate-free state vector $|S\rangle$ in Hilbert space, 
+	and the \emph{wavefunction} is its component on the position eigenbasis:
+	\[\psi(x) = \langle x | S \rangle,\]\label{1.1}
+	where $|x\rangle$ is the eigenvector of position operator $\hat{x}$ with an eigenvalue of $x$.\\
+	Similarly, there exist the momentum-space wavefunctions and the momentum eigenfunctions under position eigenbasis:
+	\[\phi(p) = \langle p | S \rangle, \quad f_p(x) = \langle x | p \rangle,\]
+	where $|p\rangle$ is the eigenvector of momentum operator $\hat{p}$ with eigenvalue $p$.\\
+	
+	\section{Operators}
+	\subsection{Operators and Matrices}
+	\subsubsection{Matrix Elements}\label{matrix element}
+	
+	\emph{Operators} are linear transformations, i.e. matrices, in Hilbert space, which take a vector as input and output another:
+	\[|\beta\rangle = \hat{Q}|\alpha\rangle.\]
+	Operators can be written in their coordinate form under an orthonormal basis like matrices with their matrix elements:
+	\[|\alpha\rangle = \sum_{n}a_n|e_n\rangle, \ \ |\beta\rangle = \sum_{n}b_n|e_n\rangle.\]
+	Similar to matrix-vector multiplication:
+	\[\begin{pmatrix}
+		\cdots\\\cdots\\b_m\\\cdots
+	\end{pmatrix} = 
+	\begin{pmatrix}
+		\cdots & \cdots & \cdots & \cdots \\ 
+		\cdots & \cdots & \cdots & \cdots \\
+		Q_{m1} & Q_{m2} & \cdots & Q_{mn} \\
+		\cdots & \cdots & \cdots & \cdots
+	\end{pmatrix}
+	\begin{pmatrix}
+		a_1\\a_2\\\cdots\\a_n
+	\end{pmatrix} \Rightarrow
+	b_m = \sum_{n}Q_{mn}a_n.\]
+	On the other hand, \[ \sum_{n} b_n|e_n\rangle = \sum_{n} a_n\hat{Q}|e_n\rangle.\]
+	Multiply by $\langle e_m | $ on both sides and using orthonormality $\langle e_m | e_n \rangle = \delta_{mn}$:
+	\[\sum_{n} a_n\langle e_m | \hat{Q} | e_n \rangle = \sum_{n} b_n \langle e_m | e_n \rangle = b_m\]
+	Which gives the expression for \emph{matrix elements}:
+	\[Q_{mn} = \langle e_m | \hat{Q} | e_n \rangle\]
+	\subsubsection{Commutators}
+	Just like matrices, operators may not commute, so we define the \emph{commutator} of two operations:
+	\[[ \hat{A}, \hat{B}] = \hat{A}\hat{B} - \hat{B}\hat{A}\]
+	If two operators commute, i.e. their commutator is zero, they are guaranteed to share a set of complete eigenbasis of Hilbert space.\label{commutator}
+	\subsubsection{Eigenvectors and Eigenvalues}
+	If the result of an operator on a vector is only scaling, 
+	the vector is called the \emph{eigenvector} (or eigenstate, eigenfunction) of the operator, 
+	and the scaling factor is called the \emph{eigenvalue} of this eigenvector, i.e. if:
+	\[\hat{Q}\psi = q\psi,\]
+	$\psi$ is the eigenvector of $\hat{Q}$ with its eigenvalue $q$.\\
+	For example, we want to find the eigenfunction of the momentum operator:
+	\[\hat{p}f_p(x) = -i\hbar\frac{\partial}{\partial x}f_p(x) = p\cdot f_p(x)\]
+	One can easily notice that $f_p(x)$ is some exponential function $Ae^{ipx/\hbar}$.\\
+	Although $f_p(x)$ is not square-integrable, we can still orthonormalize it via the criterion in continuous cases:
+	\[\langle f_p|f_p' \rangle = |A|^2\int\!e^{i(p-p')x/\hbar} \,\text{d}x = |A|^2 \cdot 2\pi\hbar\delta(p-p').\]
+	Hence we choose $A=1/\sqrt{2\pi\hbar}$ and the momentum eigenfunction with eigenvalue $p$ under position eigenbasis is:
+	\[f_p(x) = \frac{1}{\sqrt{2\pi\hbar}}e^{ipx/\hbar}\]
+	
+	\subsection{Projection Operators and Identity Operators}\label{identity}
+	For a normalized (unit) vector $|\alpha\rangle$, 
+	the inner product $\langle \alpha | f \rangle $ is the projection length of $|f\rangle$ on $|\alpha\rangle$, 
+	while the \emph{projection operator} is a mapping to the one-dimensional space spanned by $|\alpha\rangle$ which outputs a vector:
+	\[\hat{P} = |\alpha\rangle\langle\alpha|\]
+	Therefore, for a complete orthonormal basis $\{|e_n\rangle\}$, 
+	the sum (or integral in the continuous case) is the \emph{identity operator} 
+	which first separate out all the components and then add them back together, which implies the introduction of coordinates.
+	\[\hat{I} = \sum_{n}|e_n\rangle\langle e_n| \ \ \text{or  }\hat{I} =\! \int|e_n\rangle\langle e_n|\,\text{d}n\]
+	
+	\subsection{Hermitian Operators}
+	\subsubsection{Adjoint Operators}
+	If two operators $\hat{A}$ and $\hat{B}$ satisfies
+	$\langle \hat{A}f|g\rangle = \langle f|\hat{B}g\rangle$, \\
+	$\hat{A}$ is then defined as the \emph{adjoint operator} of $\hat{B}$, denoted as $\hat{A} = \hat{B}^{\dag}$\\ \\
+	Because $\langle \hat{Q}^{\dag}f | g \rangle = \langle f|\hat{Q}g\rangle$ 
+	and $\langle \hat{Q}^{\dag}f | g \rangle = \langle g| \hat{Q}^{\dag}f \rangle^{*}$\\
+	Therefore $\langle g| \hat{Q}^{\dag}|f \rangle = \langle f|\hat{Q} |g\rangle^{*}$, i.e. the matrix elements $Q^{\dag}_{gf} = Q^{*}_{fg}$.\\
+	Therefore the adjoint operator is the \emph{transpose conjugate} of the original one:
+	\[\hat{Q}^{\dag} = \hat{Q}^{T*}\]
+	
+	\subsubsection{Hermitian Operators}\label{calc}
+	Operators such that $\hat{H} = \hat{H}^{\dag}$ are called \emph{Hermitian operators}. Hermitian operators possess the following properties:
+	\[\langle g| \hat{H} |f \rangle = \langle f|\hat{H} |g\rangle^{*} \Leftrightarrow \langle \hat{H}f|g\rangle = \langle f|\hat{H}g\rangle\]
+	Proof: Hermitian operators have real eigenvalues and orthogonal eigenvectors:\\
+	Assume $|f\rangle$ and $|g\rangle$ are two distinct eigenvectors of the Hermitian operator $\hat{H}$ with eigenvalues $f\neq g$, \\
+	\[\langle f| \hat{H} |f \rangle = \langle f|\hat{H} |f\rangle^{*} \Rightarrow f\langle f|f \rangle = f^{*}\langle f|f\rangle, \ f = f^*\]
+	 hence eigenvalue $f$ is real.\\
+	\[\langle g| \hat{H} |f \rangle = \langle f|\hat{H} |g\rangle^{*} 
+	\Rightarrow g\langle f|g\rangle = f^*\langle g|f\rangle^* = f\langle f|g\rangle\]
+	Therefore $\langle f|g\rangle=0$ hence eigenvectors are orthogonal. \\ \\
+	Based on Hermitian operators there lies an \emph{anxiom} of quantum mechanics:\\
+	All \emph{observables} are repersented by corresponding Hermitian operators constructed from the two postulates below, 
+	and their eigenvectors can form a set of complete orthonormal eigenbasis.\\
+	The two \emph{postulates} are of the position operator and momentum operator under position eigenbasis:
+	\[\hat{x} = x, \ \ \hat{p_x} = -i\hbar\frac{\partial}{\partial x}.\]
+	
+	\subsection{Expectation Values}\label{expectation}
+	For the eigenbasis $\{|a_n\rangle\}$ of the Hermitian operator $\hat{A}$ and their eigenvalues $a_n$, 
+	the identity operator is $\hat{I} = \sum|a_n\rangle\langle a_n|$. Therefore:
+	\[\hat{A}|\psi\rangle = \hat{A}\hat{I}|\psi\rangle = \sum_{n}\hat{A}|a_n\rangle\langle a_n|\psi\rangle = \sum_{n}a_n|a_n\rangle\langle a_n|\psi\rangle.\]
+	Thus we obtain the \emph{spectral decomposition} of the operator $\hat{A}$:
+	\[\hat{A} = \sum_{n}a_n|a_n\rangle\langle a_n|.\]
+	When measuring the observable $A$ of the normalized state $|\psi\rangle$:
+	\[|\psi\rangle = \sum_{n}c_n|a_n\rangle \ \ \text{   where   }\ \  \sum_{n}|c_n|^2 = 1.\]
+	The probability of $|\psi\rangle$ \emph{collapsing} into one of the eigenstates $|a_n\rangle$ and thus getting the result of eigenvalue $a_n$ is $|c_n|^2$, 
+	hence the \emph{expectation value} is:
+	\[\langle A \rangle = \sum_{n}|c_n|^2a_n.\]
+	Utilizing the spectral decomposition, we can calculate the expectation value:
+	\[\langle\psi|\hat{A}|\psi\rangle = \langle A \rangle = \sum_{n}|c_n|^2a_n.\]
+	
+	\section{Change of Basis}
+	As described in \ref{identity}, identity operators are based on different eigenbases, 
+	so we can transform the abstract state $|S\rangle$ into coordinate form, for example:
+	\[|S(x)\rangle = \hat{I}_{x}|S\rangle = \int\!\ket{x}\expect{x|S}\,\text{d}x = \int\!\psi(x)|x\rangle\,\text{d}x\]
+	Accoding to this we can change functions between different bases using the abstract state $|S\rangle$ as a bridge. 
+	For instance, we want to find the relation between position-space wavefunction and momentum-space wavefunction:
+	\[\begin{aligned}
+		\phi(p) & = \langle p|S\rangle = \langle p|\hat{I}_x|S\rangle \\
+		& = \langle p | \int\!\psi(x)|x\rangle\,\text{d}x 
+		 = \int \!\langle p|x \rangle \psi(x)\,\text{d}x \\
+		& = \int \!\langle x|p \rangle^* \psi(x)\,\text{d}x 
+		 = \int \!f_{p}^{*}(x)\psi(x)\,\text{d}x .
+	\end{aligned}\]
+	Similarly, we can change operators between different bases by projecting the operation result onto a different basis.
+	For instance, we want to express the position operator $\hat{x}$ in the momentum eigenbasis $\{|p\rangle\}$:
+	\[\begin{aligned}
+		\langle p|\hat{x}|S \rangle
+		& = \int\!\langle p|\hat{x}|x\rangle\psi(x)\,\text{d}x \\
+		& = \int\!x\langle p|x\rangle\psi(x)\,\text{d}x \\
+		& = \int\!x\frac{1}{\sqrt{2\pi\hbar}}e^{-ipx/\hbar}\,\text{d}x.
+	\end{aligned}\]
+	Using the property of exponential functions, we can take $x$ out of the integral:
+	\[\langle p|\hat{x}|S \rangle = i\hbar\frac{\partial}{\partial p}\int\!\langle p|x\rangle\psi(x)\,\text{d}x = i\hbar\frac{\partial}{\partial p}\phi(p).\]
+	Therefore under the momentum eigenbasis, the position operator is:
+	\[\hat{x} = i\hbar\frac{\partial}{\partial p}.\]
+	
+	\section{Uncertainty Principles}
+	\subsection{Heisenberg Uncertainty Principle}
+	We can use the \emph{variance} $\sigma_{Q}^{2}$ to measure the uncertainty of an observable $Q$:
+	\[\sigma_{Q}^{2} = \left\langle\left(\hat{Q} - q\right)^{2}\right\rangle = \left\langle\psi\left|\left(\hat{Q}-q\right)^{2}\right|\psi\right\rangle,\]
+	where $q=\langle Q \rangle$ is some real number, so the operator $\left(\hat{Q}-q\right)$ is also Hermitian. Therefore:
+	\[\sigma_{Q}^{2} = \left\langle\left(\hat{Q} - q\right)\psi\left|\left(\hat{Q} - q\right)\psi\right\rangle\right..\]
+	If $\sigma_{Q}^{2}=0$, then $\left(\hat{Q} - q\right)\psi=0$ which means that the \emph{determined state} is the \emph{eigenstate} of an observable. 
+	But if not, we consider two observables $A$ and $B$. Denote:
+	\[f = \left(\hat{A} - a\right)\psi\ \ \text{    and    }\ \ g = \left(\hat{B} - b\right)\psi.\]
+	Invoking the Schwarz inequality and the property of complex numbers that
+	\[|z|^{2} = \text{Re}^2(z)+\text{Im}^2(z) \geq\text{Im}^2(z)= \left(\frac{1}{2i}(z-z^*)\right)^2,\]
+	we can obtain the inequality that
+	\[\sigma^{2}_{A}\sigma^{2}_{B} = \langle f|f \rangle\langle g|g \rangle	 
+	\geq \left|\langle f|g \rangle\right|^2 \geq \left(\frac{1}{2i}\left(\langle f|g \rangle-\langle g|f \rangle\right)\right)^2.\]
+	Evaluate $\langle f|g \rangle$:
+	\[\begin{aligned}
+		\langle f|g \rangle
+		& = \left\langle\left(\hat{A} - a\right)\psi\left|\left(\hat{B} - b\right)\psi\right\rangle\right.
+		= \left\langle\psi\left|\left(\hat{A} - a\right)\left(\hat{B} - b\right)\right|\psi\right\rangle \\
+		& = \left\langle\psi\left|\hat{A}\hat{B}\right|\psi\right\rangle - b\left\langle\psi\left|\hat{A}\right|\psi\right\rangle 
+		- a\left\langle\psi\left|\hat{B}\right|\psi\right\rangle + ab\left\langle\psi\left|\psi\right\rangle\right. \\
+		& = \left\langle\hat{A}\hat{B}\right\rangle - ab - ab + ab = \left\langle\hat{A}\hat{B}\right\rangle - ab.
+	\end{aligned}\]
+	Similarly, $\langle g|f \rangle = \langle\hat{B}\hat{A}\rangle - ab$.\\
+	Therefore, 
+	\[\langle f|g \rangle-\langle g|f \rangle = \left\langle\hat{A}\hat{B}\right\rangle - \left\langle\hat{B}\hat{A}\right\rangle 
+	= \left\langle\left[\hat{A},\hat{B}\right]\right\rangle\]
+	Put them all together and we finally get the \emph{Heisenberg uncertainty principle}:
+	\[\sigma_{A}\sigma_{B} \geq \left|\frac{1}{2i}\left\langle\left[\hat{A}, \hat{B}\right]\right\rangle\right|.\]
+	By letting $\hat{A} = \hat{x}$ and $\hat{B} = \hat{p}$, we obtain the \emph{position-momentum uncertainty principle}:
+	\[\Delta x \Delta p \geq \frac{\hbar}{2}.\]
+	
+	\subsection{Ehrenfest Theorem and Energy-Time Uncertainty Principle}
+	Given a time-\emph{dependent} wavefunction $\psi(x, t)$ and an observable $Q$ that \emph{may} depend on time, 
+	consider the change of its expectation value with respect to time:
+	\[\begin{aligned}
+		\frac{\text{d}}{\text{d}t}\langle Q \rangle
+		& = \frac{\text{d}}{\text{d}t} \left\langle \psi \left| \hat{Q} \right| \psi \right\rangle \\
+		& = \left\langle \frac{\partial\psi}{\partial t} \left| \hat{Q} \right| \psi \right\rangle +
+			\left\langle \psi \left| \frac{\partial\hat{Q}}{\partial t} \right| \psi \right\rangle +
+			\left\langle \psi \left| \hat{Q} \right| \frac{\partial\psi}{\partial t} \right\rangle
+	\end{aligned}\]
+	Invoking the time-dependent \emph{Schr\"odinger equation} shown as below:
+	\[i\hbar\frac{\partial\psi}{\partial t} = \hat{H}\psi,\]
+	where $\hat{H}$ is the \emph{Hamiltonian operator} that represents the whole energy of the state, 
+	and note that when taking a constant out of the bra notation, it results in its conjugate.
+	\[\begin{aligned}
+		\frac{\text{d}}{\text{d}t}\langle Q \rangle
+		& = \left(\frac{1}{i\hbar}\right)^*\left\langle \hat{H}\psi \left| \hat{Q} \right. \psi \right\rangle + 
+		\left\langle \psi \left| \frac{\partial\hat{Q}}{\partial t} \right| \psi \right\rangle + 
+		\frac{1}{i\hbar}\left\langle \psi \left. \hat{Q} \right| \hat{H}\psi \right\rangle\\
+		& = -\frac{1}{i\hbar}\left\langle \psi \left| \hat{H}\hat{Q} \right| \psi \right\rangle + 
+		\frac{1}{i\hbar}\left\langle \psi \left| \hat{Q}\hat{H} \right| \psi \right\rangle + 
+		\left\langle \psi \left| \frac{\partial\hat{Q}}{\partial t} \right| \psi \right\rangle
+	\end{aligned}\]
+	Cleaning up a bit, and we obtain the \emph{Ehrenfest theorem}:
+	\[\frac{\text{d}}{\text{d}t}\langle Q \rangle = \frac{i}{\hbar}\left\langle\left[\hat{H}, \hat{Q}\right]\right\rangle + \left\langle\frac{\partial\hat{Q}}{\partial t}\right\rangle.\]
+	It implies that: 1) if $\hat{Q}$ itself doesn't depend explicitly on time, and 2) it commutes with $\hat{H}$, then $Q$ is a \emph{conserved observable}.\\ \\
+	Utilizing Heisenberg uncertainty, we set $\hat{A} = \hat{H}$ and $\hat{B} = \hat{Q}$. If $\hat{Q}$ doesn't depend explicitly on time, 
+	\[\sigma_{H}\sigma_{Q} \geq \left| \frac{1}{2i}\frac{\hbar}{i}\frac{\text{d}\langle Q \rangle}{\text{d}t} \right| 
+	= \frac{\hbar}{2}\left|\frac{\text{d}\langle Q \rangle}{\text{d}t} \right|. \]
+	Setting $\Delta E$ equal to $\sigma_{H}$ and $\Delta t$ the time it takes for $\langle Q \rangle$ to change one standard deviation, i.e.
+	\[\Delta E = \sigma_{H}\ \ \text{    and    }\ \ \Delta t = \frac{\sigma_{Q}}{\left|\text{d}\langle Q \rangle/\text{d}t\right|},\]
+	we obtain the \emph{energy-time uncertainty principle}:
+	\[\Delta E \Delta t \geq \frac{\hbar}{2}.\]
+	
+	\section{To Conclude...}
+	The main idea of quantum mechanics covered in two sentences:\\ \\
+	The state of a particle is represented by a vector in an inner product space 
+	where its properties, i.e. the observables it has, are represented by Hermitian operators 
+	of which all possible observable states form a set of orthonormal eigenbasis with the corresponding observable their eigenvalues.
+	When observing a quantum state, it will randomly collapse into one of the eigenstates of the observable operators, 
+	of which the probability is proportional to the modulus square of the state's component on the eigenstate, 
+	and giving the eigenvalue of the eigenstate as a result.

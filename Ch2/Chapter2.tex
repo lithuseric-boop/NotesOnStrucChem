@@ -1,0 +1,233 @@
+\chapter{Schr\"odinger's Equation}
+
+%===========================================
+
+%===========================================
+
+\section{Time-Independent Schrödinger Equation}
+
+Separating variables with $\Psi(x,t) = \psi(x)\varphi(t)$:
+%
+\begin{itemize}
+\item Time part:
+\[
+\frac{d\varphi}{dt} = -\frac{iE}{\hbar}\varphi 
+\quad \Rightarrow \quad 
+\varphi = \exp\left(-\frac{iEt}{\hbar}\right)
+\]
+%
+\item Spatial part:
+\[\boxed{
+\hat{H}\psi = E\psi
+}\]
+\end{itemize}
+
+\section{Infinite Square Well}
+
+For the potential
+\[
+V(x) = \begin{cases} 0, & 0 \leq x \leq a \\ +\infty, & \text{otherwise} \end{cases}
+\]
+the Schrödinger equation becomes:
+\[
+\frac{d^2\psi}{dx^2} = -k^2\psi, \quad
+k = \frac{1}{\hbar}\sqrt{2mE}
+\]
+%
+The general solution $\psi = A\sin kx + B\cos kx$ must satisfy boundary conditions $\psi(0) = \psi(a) = 0$.\\
+Substituting and normalizing yields the \emph{eigenfunctions and energy levels}:
+\[
+\psi_n(x) = \sqrt{\frac{2}{a}}\sin\frac{n\pi x}{a}, \quad E_n = \frac{n^2h^2}{8ma^2}
+\]
+Note that $\psi_n$ forms a complete orthonormal basis for the entire space. Thus any initial state $\Psi(x,0)$ can be expanded via Fourier transform to obtain the time-dependent wave function:
+\[
+\Psi(x,t) = \sum_n c_n\psi_n\varphi_n, \quad \text{where } c_n = \sqrt{\frac{2}{a}}\int_0^a \sin\frac{n\pi x}{a}\Psi(x,0)\,dx
+\]
+Since generally $V(x) \to 0$ as $x \to \pm\infty$, we defined two kinds of states to be discussed later on:
+\begin{itemize}
+    \item $E < 0$: \emph{Bound states} (localized)
+    \item $E > 0$: \emph{Scattering states} (transmission/reflection occurs at potential barriers)
+\end{itemize}
+
+\section{Delta Function Potential}
+
+For $V(x) = -\alpha\delta(x)$ with $\alpha > 0$:
+
+\subsection{Bound States}
+Consider bound states with $E < 0$, the Schrödinger equation is 
+\[
+\frac{d^2\psi}{dx^2} = \kappa^2\psi, \quad
+\kappa = \frac{1}{\hbar}\sqrt{-2mE}
+\]
+General solution writes $\psi = Ae^{-\kappa x} + Be^{\kappa x}$. \\
+For $x < 0$, the $A$ term diverges as $x \to -\infty$, so $A = 0$. Similarly for $x > 0$, the $B$ term must be discarded. 
+By continuity of wave function, the remaining coefficients are equal:
+\[
+\psi(x) = \begin{cases} Be^{\kappa x}, & x < 0 \\ Be^{-\kappa x}, & x > 0 \end{cases}
+\]
+While the wave function is differentiable everywhere for finite potentials, it is not differentiable at $x = 0$ for the delta potential. Integrating the Schrödinger equation across an infinitesimal interval and taking the limit:
+\[
+-\frac{\hbar^2}{2m}\int_{-\varepsilon}^{\varepsilon}\frac{d^2\psi}{dx^2}\,dx + \int_{-\varepsilon}^{\varepsilon}V\psi\,dx = E\int_{-\varepsilon}^{\varepsilon}\psi\,dx
+\]
+As $\varepsilon \to 0$, the right side vanishes (since $\psi$ is finite). Thus:
+\[
+\lim_{\varepsilon\to 0}\left(\frac{d\psi}{dx}\bigg|_{+\varepsilon} - \frac{d\psi}{dx}\bigg|_{-\varepsilon}\right) = \frac{2m}{\hbar^2}\lim_{\varepsilon\to 0}\int_{-\varepsilon}^{\varepsilon}V\psi\,dx
+\]
+For finite $V$, the right side vanishes, giving equal derivatives. But for $V(x) = -\alpha\delta(x)$:
+\[
+\Delta\left(\frac{d\psi}{dx}\right) = -\frac{2m\alpha}{\hbar^2}\psi(0) = -\frac{2m\alpha B}{\hbar^2}
+\]
+For our solution: 
+\[
+\left.\frac{d\psi}{dx}\right|_{0^+} \!= -B\kappa, \quad
+\left.\frac{d\psi}{dx}\right|_{0^-} \!= B\kappa
+\quad\Rightarrow\quad 
+\Delta(d\psi/dx) = -2B\kappa
+\]
+After solving and normalization:
+\[
+\kappa = \frac{m\alpha}{\hbar^2}, \quad
+B = \sqrt{\frac{m\alpha}{\hbar^2}} = \sqrt{\kappa}
+\]
+Thus the \emph{bound state wave function and energy} are:
+\[
+\psi(x) = \frac{\sqrt{m\alpha}}{\hbar}\exp\left(-\frac{m\alpha|x|}{\hbar^2}\right), \quad E = -\frac{m\alpha^2}{2\hbar^2}
+\]
+
+\subsection{Scattering States}
+
+The Schrödinger equation is then
+\[
+\frac{d^2\psi}{dx^2} = -k^2\psi, \quad
+k = \frac{1}{\hbar}\sqrt{2mE}
+\]
+The equation solves:
+\[\begin{aligned}
+\text{For } x < 0&:\ \psi = Ae^{ikx} + Be^{-ikx} \\
+\text{For } x > 0&:\ \psi = Fe^{ikx} + Ge^{-ikx}
+\end{aligned}\]
+Boundary conditions at $x = 0$ are obtained by means similar to bound states:
+\begin{align*}
+&\text{Continuity: } F + G = A + B \\
+&\text{Derivative discontinuity: } ik(F - G - A + B) = -\frac{2m\alpha}{\hbar^2}(A + B)
+\end{align*}
+Letting $\beta = m\alpha/\hbar^2 k$, we obtain:
+\[
+F - G = (1 + 2i\beta)A - (1 - 2i\beta)B
+\]
+Identifying $A$ as incident wave, $B$ as reflected wave, $F$ as transmitted wave, and setting $G = 0$ (no wave from $+\infty$):
+\[
+B = \frac{i\beta}{1 - i\beta}A, \quad F = \frac{1}{1 - i\beta}A
+\]
+The \emph{reflection and transmission coefficients} are:
+\[
+R = \frac{|B|^2}{|A|^2} = \frac{\beta^2}{1 + \beta^2}, \quad T = \frac{|F|^2}{|A|^2} = \frac{1}{1 + \beta^2}
+\]
+Note that for $V = +\alpha\delta(x)$ with $\alpha > 0$, the bound state disappears, but scattering states remain with finite transmission probability even when the particle energy is insufficient to classically overcome the barrier. This phenomenon of transmission through a classically forbidden region is called \emph{quantum tunneling}.
+
+\section{Finite Square Well}
+
+Consider the potential
+\[
+V(x) = \begin{cases} -V_0, & -a \leq x \leq a \\ 0, & \text{otherwise} \end{cases} \quad (V_0 > 0)
+\]
+
+\subsection{Bound States}
+
+\begin{itemize}
+
+\item For $-a \leq x \leq a$: Schrödinger equation is 
+\[
+\frac{d^2\psi}{dx^2} = -l^2\psi, \quad
+l = \frac{1}{\hbar}\sqrt{2m(E + V_0)}
+\]
+
+Solution: $\psi_a(x) = C\sin(lx) + D\cos(lx)$
+
+\item For $|x| > a$: 
+\[
+\frac{d^2\psi}{dx^2} = \kappa^2\psi, \quad 
+\kappa = \frac{1}{\hbar}\sqrt{-2mE}
+\]
+Solution for $x > a$: $\psi_b(x) = Fe^{-\kappa x}$ (the $e^{\kappa x}$ term is discarded as it diverges at $+\infty$).\\ \\
+\item For \emph{even solutions} $\psi_a(x) = D\cos(lx)$:
+\begin{align*}
+&\text{Continuity: } Fe^{-\kappa a} = D\cos(la) \\
+&\text{Differentiability: } -\kappa Fe^{-\kappa a} = -lD\sin(la)
+\end{align*}
+Dividing $\kappa = l\tan(la)$, then let $z = la$ and $z_0 = \frac{a}{\hbar}\sqrt{2mV_0}$:
+\[
+\tan z = \sqrt{\left(\frac{z_0}{z}\right)^2 - 1}
+\]
+\item For \emph{odd solutions}, similar analysis yields:
+\[
+-\cot z = \sqrt{\left(\frac{z_0}{z}\right)^2 - 1}
+\]
+\end{itemize}
+
+Therefore the number of bound states is:
+\[N=\left\lfloor\frac{2z_0}{\pi}\right\rfloor + 1\]
+
+\subsection{Scattering States}
+
+The wave function has the form:
+\[
+\psi = \begin{cases} Ae^{ikx} + Be^{-ikx}, & x < -a \\ C\sin(lx) + D\cos(lx), & -a \leq x \leq a \\ Fe^{ikx}, & x > a \end{cases}
+\]
+The transmission coefficient is:
+\[
+T^{-1} = 1 + \frac{V_0^2}{4E(E + V_0)}\sin^2\left(\frac{2a}{\hbar}\sqrt{2m(E + V_0)}\right)
+\]
+
+\section{Harmonic Oscillator and Ladder Operators}
+
+When a particle is at equilibrium near a potential minimum, Taylor expansion gives:
+\[
+V(x) = V(x_0) + V'(x_0)(x - x_0) + \frac{1}{2}V''(x_0)(x - x_0)^2 + \cdots
+\]
+$V(x_0)$ is an irrelevant constant which does not affect dynamics. At equilibrium $V'(x_0) = 0$, so the linear term vanishes. For small oscillations, higher order terms are negligible, leaving only the quadratic term:
+\[V(x) \approx \frac{1}{2}V''(x_0)(x - x_0)^2\]
+This explains why general potentials near equilibrium can be approximated as harmonic oscillators.\\ \\
+For $V(x) = \frac{1}{2}m\omega^2x^2$, the Hamiltonian is:
+\[
+\hat{H} = \frac{\hat{p}^2}{2m} + \frac{1}{2}m\omega^2\hat{x}^2 = \frac{1}{2m}\left[\hat{p}^2 + (m\omega x)^2\right]
+\]
+Motivated by the complex factorization $x^2 + y^2 = (ix + y)(-ix + y)$, define the \emph{ladder operators}:
+\[
+\hat{a}_{\pm} = \frac{1}{\sqrt{2\hbar m\omega}}\left(\mp i\hat{p} + m\omega x\right)
+\]
+Since $x$ and $p$ do not commute $[\hat{x}, \hat{p}] = i\hbar$, we have:
+\[
+\hat{a}_-\hat{a}_+ = \frac{1}{2\hbar m\omega}\left[\hat{p}^2 + (m\omega x)^2 - im\omega[\hat{x}, \hat{p}]\right] = \frac{1}{\hbar\omega}\hat{H} + \frac{1}{2}
+\]
+The operators do not commute: $[\hat{a}_-, \hat{a}_+] = 1$, and they are Hermitian conjugates $\hat{a}_-^\dagger = \hat{a}_+$, thus:
+\[\hat{H} = \hbar\omega\left(\hat{a}_-\hat{a}_+ - \frac{1}{2}\right) = \hbar\omega\left(\hat{a}_+\hat{a}_- + \frac{1}{2}\right)\]
+If $\psi$ has energy eigenvalue $E$, then $\hat{a}_\pm\psi$ has eigenvalue $E \pm \hbar\omega$:
+\begin{align*}
+\hat{H}(\hat{a}_+\psi) &= \hbar\omega\left(\hat{a}_+\hat{a}_- + \frac{1}{2}\right)(\hat{a}_+\psi) \\
+&= \hbar\omega\left(\hat{a}_+\hat{a}_-\hat{a}_+ + \frac{1}{2}\hat{a}_+\right)\psi \\
+&= \hbar\omega\hat{a}_+\left(\hat{a}_-\hat{a}_+ + \frac{1}{2}\right)\psi \\
+&= \hat{a}_+(\hat{H} + \hbar\omega)\psi = \hat{a}_+(E + \hbar\omega)\psi = (E + \hbar\omega)(\hat{a}_+\psi)
+\end{align*}
+Therefore $\hat{a}_\pm$ are called \emph{ladder operators} ($\hat{a}_+$ raises, $\hat{a}_-$ lowers).\\ \\
+If we repeatedly apply the lowering operator, the energy would eventually become negative. However, since $\hat{a}_-\psi_0 = 0$ for the ground state, there exists a \emph{minimum energy state} $\psi_0$ satisfying:
+\[
+\frac{1}{\sqrt{2\hbar m\omega}}\left(\hbar\frac{d}{dx} + m\omega x\right)\psi_0 = 0 \quad \Rightarrow \quad \psi_0 = A\exp\left(-\frac{m\omega x^2}{2\hbar}\right)
+\]
+Normalizing yields the \emph{ground state wave function and zero-point energy}:
+\[
+\psi_0(x) = \left(\frac{m\omega}{\pi\hbar}\right)^{1/4}\exp\left(-\frac{m\omega}{2\hbar}x^2\right), \quad E_0 = \frac{1}{2}\hbar\omega
+\]
+All excited states are obtained by applying the raising operator: $\psi_n = A_n(\hat{a}_+)^n\psi_0$, which give rise to the quantization of energies.\\ \\
+To calculate $A_n$, note that $\hat{a}_+\psi_n$ is proportional to $\psi_{n+1}$ and $\hat{a}_-\psi_{n+1}$ is proportional to $\psi_n$. Since $\hat{a}_-\hat{a}_+\psi_n = (n+1)\psi_n$ which can be derived from $[\hat{a}_-, \hat{a}_+] = 1$ and $\hat{H} = \hbar\omega(\hat{a}_-\hat{a}_+ - \frac{1}{2})$, using the Hermitian conjugate property gives: (see \ref{calc})
+\[
+\langle\hat{a}_+\psi_n|\hat{a}_+\psi_n\rangle = \langle\psi_n|\hat{a}_-\hat{a}_+\psi_n\rangle = (n+1)\langle\psi_n|\psi_n\rangle = n+1
+\]
+Thus $|c_n|^2 = n+1$ where $\hat{a}_+\psi_n = c_n\psi_{n+1}$. Similarly for $\hat{a}_-$, we obtain:
+\[
+\hat{a}_+\psi_n = \sqrt{n+1}\psi_{n+1}, \quad \hat{a}_-\psi_n = \sqrt{n}\psi_{n-1}
+\]
+Therefore we obtain the wave function and energy of harmonic oscillators:
+\[
+\psi_n = \frac{1}{\sqrt{n!}}(\hat{a}_+)^n\psi_0, \quad E_n = \left(n + \frac{1}{2}\right)\hbar\omega
+\]
