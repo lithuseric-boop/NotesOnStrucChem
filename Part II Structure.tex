@@ -1,0 +1,44 @@
+\documentclass{report}
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{physics, braket, mathtools}
+
+\usepackage{color, array, graphicx, booktabs, subcaption, fancyhdr}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[pdfborder={0 0 0}]{hyperref}
+\usepackage[left=3cm, right=3cm, top=3cm, bottom=3cm]{geometry}
+
+\linespread{1.1}
+\pagestyle{fancy}
+
+\newcommand{\ketup}{\ket{\uparrow}}
+\newcommand{\ketdown}{\ket{\downarrow}}
+\newcommand{\expect}[1]{\langle #1 \rangle}
+\newcommand{\df}{\text{d}}
+
+
+\title{{\huge\textbf{Constructing Structural Chemistry from Quantum Mechanics in 10 Chapters}}}
+\author{Ericka Lithi}
+
+\begin{document}
+
+	\maketitle
+	\fancyhf{}
+	\fancyhead[R]{{\small Copyright \copyright Ericka Lithi}}
+
+	\tableofcontents
+
+	\include{Ch1/Chapter1}
+	\include{Ch2/Chapter2}
+	\include{Ch3/Chapter3}
+	\include{Ch4/Chapter4}
+	\include{Ch5/Chapter5}
+	\include{Ch6/Chapter6}
+	\include{Ch7/Chapter7}
+	\include{Ch8/Chapter8}
+	\include{Ch9/Chapter9}
+	\include{Ch10/Chapter10}
+	
+	
+\end{document}
